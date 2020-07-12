@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>　
+
+  <head>
+    <style>
+      main {
+        margin-right: auto;
+        margin-left: auto;
+        background: black;
+        width: 800px;
+        height: 500px;
+        margin-top: 100px;
+      }
+    </style>
+  </head>
+
+  <main>
+    <div class="main">
+      <canvas id="can"></canvas>
+    </div>
+  </main>
+
+  <script>
+    const SCREEN_W = 800;
+    const SCREEN_H = 500;
+
+    let elm = document.getElementById('can');
+    let con = elm.getContext("2d");
+
+    let x = 100;
+    let y = 200;
+    let sx = 50;
+    let sy = 50;
+    let vx = 90;
+    let vy = 30;
+
+    elm.width = SCREEN_W;
+    elm.height = SCREEN_H;
+    elm.style.backgroundColor = "red";
+
+    setInterval(main, 1000 / 40);
+
+    function main() {
+      //con.clearRect(0, 0, SCREEN_W, SCREEN_H);
+
+      x += vx;　
+      y += vy;
+
+      con.fillStyle = "yellow";
+      con.fillRect(x, y, sx, sy);
+
+      if (x + sx >= SCREEN_W || x <= 0) {
+        vx *= -1;
+      }
+
+      if (y + sy >= SCREEN_H || y <= 0) {
+        vy *= -1;
+      }
+
+    }
+  </script>
+
+</body>
+
+</html>
