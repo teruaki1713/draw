@@ -6,67 +6,64 @@
   <title></title>
 </head>
 
-<body>　
-
-  <head>
-    <style>
-      main {
-        margin-right: auto;
-        margin-left: auto;
-        background: black;
-        width: 800px;
-        height: 500px;
-        margin-top: 100px;
-      }
-    </style>
-  </head>
-
-  <main>
-    <div class="main">
-      <canvas id="can"></canvas>
-    </div>
-  </main>
-
+<body>
+  <canvas id="can"></canvas>
   <script>
     const SCREEN_W = 800;
     const SCREEN_H = 500;
-
-    let elm = document.getElementById('can');
-    let con = elm.getContext("2d");
+    let SCREEN_C = "red";
 
     let x = 100;
     let y = 200;
-    let sx = 50;
-    let sy = 50;
-    let vx = 90;
-    let vy = 30;
+    let sx = 30;
+    let sy = 20;
+    let vx = 3;
+    let vy = 2;
+    let BLOCK_C = "yellow";
+    let drw = 60;
+    let color =[ "yellow" , "blue" , "orange" , "pink"];
+    let random = 0;
+    let i = 0;
+
+    let elm = document.getElementById("can");
+    let con = elm.getContext("2d");
 
     elm.width = SCREEN_W;
     elm.height = SCREEN_H;
-    elm.style.backgroundColor = "red";
+    elm.style.backgroundColor = SCREEN_C;
 
-    setInterval(main, 1000 / 40);
+    setInterval(main, 1000 / drw);
 
     function main() {
+
       //con.clearRect(0, 0, SCREEN_W, SCREEN_H);
 
-      x += vx;　
+      sx = Math.floor(Math.random()*140)+11;
+      sy = Math.floor(Math.random()*140)+11;
+      x = Math.floor(Math.random()*800)+1;
+      y = Math.floor(Math.random()*500)+1;
+      random = Math.floor(Math.random()*color.length);
+
+      BLOCK_C = color[random];
+
+      x += vx;
       y += vy;
+      i ++;
+      console.log(i);
 
-      con.fillStyle = "yellow";
       con.fillRect(x, y, sx, sy);
+      con.fillStyle = BLOCK_C;
 
-      if (x + sx >= SCREEN_W || x <= 0) {
+      if (x <= 0 || x + sx >= SCREEN_W) {
         vx *= -1;
       }
 
-      if (y + sy >= SCREEN_H || y <= 0) {
+      if (y <= 0 || y + sy >= SCREEN_H) {
         vy *= -1;
       }
 
     }
   </script>
-
 </body>
 
 </html>
