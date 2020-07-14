@@ -8,10 +8,13 @@
 
 <body>
   <canvas id="can"></canvas>
+  <h3 id="s3">優勢</h3>
+  <p id="s1">現在の黄</p>
+  <p id="s2">現在の青</p>
   <script>
     const SCREEN_W = 800;
     const SCREEN_H = 500;
-    let SCREEN_C = "red";
+    let SCREEN_C = "gray";
 
     let x = 100;
     let y = 200;
@@ -21,12 +24,18 @@
     let vy = 2;
     let BLOCK_C = "yellow";
     let drw = 60;
-    let color =[ "yellow" , "blue" , "orange" , "pink"];
+    let color =[ "yellow" , "blue"/*, "orange" , "pink"*/];
     let random = 0;
     let i = 0;
 
+    let s1=400;
+    let s2=400;
+    let s = 0;
+    let ad = 0;
+
     let elm = document.getElementById("can");
     let con = elm.getContext("2d");
+    let sen = document.getElementById("s3");
 
     elm.width = SCREEN_W;
     elm.height = SCREEN_H;
@@ -38,18 +47,47 @@
 
       //con.clearRect(0, 0, SCREEN_W, SCREEN_H);
 
-      sx = Math.floor(Math.random()*140)+11;
-      sy = Math.floor(Math.random()*140)+11;
+      sx = Math.floor(Math.random()*90)+11;
+      sy = Math.floor(Math.random()*90)+11;
       x = Math.floor(Math.random()*800)+1;
       y = Math.floor(Math.random()*500)+1;
       random = Math.floor(Math.random()*color.length);
 
       BLOCK_C = color[random];
 
+      ad = s1+s2;
+      sss = x*y;
+      ss = sss/4000;
+      s = ss/ad;
+
+      console.log(s);
+
+      if(BLOCK_C == color[0]){
+        s1+=s;
+        s2-=s;
+      }else if(BLOCK_C == color[1]){
+        s2+=s;
+        s1-=s;
+      }
+
+      document.getElementById("s1").textContent = "現在の黄："+(s1-399);
+      document.getElementById("s2").textContent = "現在の青："+(s2-399);
+
+      if(s1<s2){
+        sen.textContent = "優勢：　　青";
+        //s1+=(50/40000);
+        //s2-=(50/40000);
+      }else if(s2<s1){
+        sen.textContent = "優勢：黄";
+        //s2+=(50/40000);
+        //s1-=(50/40000);
+      }else if (s1==s2){
+        sen.textContent = "互角";
+      }
+
       x += vx;
       y += vy;
       i ++;
-      console.log(i);
 
       con.fillRect(x, y, sx, sy);
       con.fillStyle = BLOCK_C;
