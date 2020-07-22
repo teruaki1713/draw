@@ -14,51 +14,58 @@
   <script>
     const SCREEN_W = 800;
     const SCREEN_H = 500;
-    let SCREEN_C = "#888888";
+    let SCREEN_C   = "#888888";
 
     let px = 0;
     let py = 0;
-    let x = 50;
-    let y = 50;
+    let x  = 50;
+    let y  = 50;
     let sx = 40;
     let sy = 40;
     let vx = 1;
     let vy = 1;
-    let CON_C = ["red", "white", "blue", "white", "skyblue"];
+    let CON_C    = ["red", "white", "blue", "white", "skyblue"];
     let BLOCK_N1 = 5;
     let BLOCK_N2 = 3;
-    let dis = 30;
+    let dis   = 30;
+    let vdis  = 0.11;
 
     let elm = document.getElementById("can");
     let con = elm.getContext("2d");
 
-    elm.width = SCREEN_W;
+    elm.width  = SCREEN_W;
     elm.height = SCREEN_H;
     elm.style.backgroundColor = SCREEN_C;
 
-    setInterval(main, 1000 / 60);
+    setInterval(main, 1000 / 250);
 
     function main() {
 
       if (dis > 0) {
-        dis -= 0.1;
+        dis -=  vdis;
       }
 
       con.clearRect(0, 0, SCREEN_W, SCREEN_H);
+
       x += vx;
       y += vy;
+
       for (let j = 0; j < BLOCK_N2; j++) {
         con.fillStyle = CON_C[j % 5];
         py = ((sy + dis) * j) + y;
+
         for (let i = 0; i < BLOCK_N1; i++) {
+          //py+=10;
           px = ((sx + dis) * i) + x;
           con.fillRect(px, py, sx, sy);
+
           if (px < 0 || px + sx > SCREEN_W) {
             vx *= -1;
           }
-        }
-        if (py < 0 || py + sy > SCREEN_H) {
-          vy *= -1;
+          if (py < 0 || py + sy > SCREEN_H) {
+            vy *= -1;
+
+          }
         }
       }
     }
